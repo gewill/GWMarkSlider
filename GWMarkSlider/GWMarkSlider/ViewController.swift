@@ -51,7 +51,8 @@ class ViewController: UIViewController {
     func markSliderSelecteValueChanged(markSlider: GWMarkSlider) {
 
         let point: CGPoint = CGPoint(x: markSlider1.frame.origin.x + markSlider.markCenters[markSlider.selectedMarkIndex].x, y: markSlider1.frame.origin.y + markSlider.markCenters[markSlider.selectedMarkIndex].y)
-        print("selectedMarkIndex: (\(markSlider.selectedMarkIndex) \(point)")
+        let point2 = self.view.convertPoint(markSlider.markCenters[markSlider.selectedMarkIndex], fromView: markSlider)
+        print("selectedMarkIndex: (\(markSlider.selectedMarkIndex) \(point) \(point2)")
 
     }
 
