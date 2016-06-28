@@ -9,7 +9,7 @@ GWMarkSlider is UISlider like, but you can add marks to indicate or show key inf
 ## Use
 This control is **IBDesignable** and uses the **target-action** pattern for change notifications.
 
-In order to be notified when either thumb value changes, register for  `.EditingChanged`,`EditingDidEnd`,`.ValueChanged`:
+In order to be notified when either thumb value changes and marks touch down, register for  `.EditingChanged`,`EditingDidEnd`,`.ValueChanged`:
 
 
 ```swift
