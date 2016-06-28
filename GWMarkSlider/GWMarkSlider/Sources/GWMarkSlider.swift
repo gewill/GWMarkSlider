@@ -23,15 +23,15 @@ class GWMarkSliderTrackLayer: CALayer {
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         CGContextAddPath(ctx, path.CGPath)
 
-        // Fill the track
+        // Fill min track
         CGContextSetFillColorWithColor(ctx, slider.minTintColor.CGColor)
         CGContextAddPath(ctx, path.CGPath)
         CGContextFillPath(ctx)
 
-        // Fill the highlighted range
+        // Fill max track
         CGContextSetFillColorWithColor(ctx, slider.maxTintColor.CGColor)
-        let lowerValuePosition = CGFloat(slider.positionForValue(slider.currentValue))
-        let rect = CGRect(x: lowerValuePosition, y: 0.0, width: bounds.width - lowerValuePosition, height: bounds.height)
+        let currentValuePosition = CGFloat(slider.positionForValue(slider.currentValue))
+        let rect = CGRect(x: currentValuePosition, y: 0.0, width: bounds.width - currentValuePosition, height: bounds.height)
         CGContextFillRect(ctx, rect)
     }
 }
@@ -81,7 +81,7 @@ class GWMarkSliderMarkLayer: CALayer {
 
     weak var markSlider: GWMarkSlider?
 
-    var markPosition: Double = 0.0
+    var markValue: Double = 0.0
 
     override func drawInContext(ctx: CGContext) {
         guard let slider = markSlider else {
@@ -106,7 +106,7 @@ class GWMarkSlider: UIControl {
     // MARK: - properties
 
     // 标记点数组：范围 0-1
-    var markPositions: [Double] = [Double]() {
+    var markValues: [Double] = [Double]() {
 
         willSet {
             markLayers = [GWMarkSliderMarkLayer]()
@@ -118,6 +118,14 @@ class GWMarkSlider: UIControl {
     }
 
     var selectedMarkIndex = 0
+
+    var markCenters: [CGPoint] {
+        var centers = [CGPoint]()
+        for markValue in markValues {
+            centers.append(CGPoint(x: CGFloat(positionForValue(markValue)), y: bounds.height / 2))
+        }
+        return centers
+    }
 
     @IBInspectable var minimumValue: Double = 0.0 {
         willSet(newValue) {
@@ -225,11 +233,11 @@ class GWMarkSlider: UIControl {
         thumbLayer.contentsScale = UIScreen.mainScreen().scale
         layer.addSublayer(thumbLayer)
 
-        for markPosition in markPositions {
+        for markValue in markValues {
             let markLayer = GWMarkSliderMarkLayer()
             markLayer.markSlider = self
             markLayer.contentsScale = UIScreen.mainScreen().scale
-            markLayer.markPosition = markPosition
+            markLayer.markValue = markValue
             markLayers.append(markLayer)
             layer.addSublayer(markLayer)
         }
@@ -248,7 +256,7 @@ class GWMarkSlider: UIControl {
         thumbLayer.setNeedsDisplay()
 
         for markLayer in markLayers {
-            let markLayerCenter = CGFloat(positionForValue(markLayer.markPosition))
+            let markLayerCenter = CGFloat(positionForValue(markLayer.markValue))
             markLayer.frame = CGRect(x: markLayerCenter - trackHeight, y: (bounds.height - trackHeight) / 2, width: trackHeight * 2, height: trackHeight)
             markLayer.setNeedsDisplay()
         }
@@ -259,22 +267,22 @@ class GWMarkSlider: UIControl {
 
     private func resetMarkLayers() {
 
-        for markPosition in markPositions {
+        for markValue in markValues {
             let markLayer = GWMarkSliderMarkLayer()
             markLayer.markSlider = self
             markLayer.contentsScale = UIScreen.mainScreen().scale
-            markLayer.markPosition = markPosition
+            markLayer.markValue = markValue
             markLayers.append(markLayer)
             layer.insertSublayer(markLayer, below: thumbLayer)
         }
 
     }
 
-    // 计算value对应thunb图标的中心位置
+    // 计算value对应thunb图标的中心位置的y座标
     // 对应 UISlider，整体的可以滑动的宽度，减少一个thumb图标的宽度
     // thumb的位置就是可滑动的宽度乘以value与（最大值减去最小值）的占例
     // 再加上前面半个thumb的宽度
-    func positionForValue(value: Double) -> Double {
+    private func positionForValue(value: Double) -> Double {
         return Double(bounds.width - thumbWidth) * (value - minimumValue) /
             (maximumValue - minimumValue) + Double(thumbWidth / 2.0)
     }

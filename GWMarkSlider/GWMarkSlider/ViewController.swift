@@ -19,7 +19,7 @@ class ViewController: UIViewController {
 
         // markSlider1.minTintColor = UIColor.clearColor()
         // markSlider1.maxTintColor = UIColor.clearColor()
-        markSlider1.markPositions = [0.3, 0.6]
+        markSlider1.markValues = [0.3, 0.6]
 
         markSlider1.addTarget(self, action: #selector(self.markSliderEditingChanged(_:)), forControlEvents: .EditingChanged)
         markSlider1.addTarget(self, action: #selector(self.markSliderEditingDidEnd(_:)), forControlEvents: .EditingDidEnd)
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         markSlider2.minTintColor = UIColor.purpleColor()
         markSlider2.maxTintColor = UIColor.lightGrayColor()
         markSlider2.thumbTintColor = UIColor.redColor()
-        markSlider2.markPositions = [0.1, 0.3, 0.4, 0.6, 0.9]
+        markSlider2.markValues = [0.1, 0.3, 0.4, 0.6, 0.9]
         self.view.addSubview(markSlider2)
 
     }
@@ -49,7 +49,10 @@ class ViewController: UIViewController {
     }
 
     func markSliderSelecteValueChanged(markSlider: GWMarkSlider) {
-        print("selectedMarkIndex: (\(markSlider.selectedMarkIndex)")
+
+        let point: CGPoint = CGPoint(x: markSlider1.frame.origin.x + markSlider.markCenters[markSlider.selectedMarkIndex].x, y: markSlider1.frame.origin.y + markSlider.markCenters[markSlider.selectedMarkIndex].y)
+        print("selectedMarkIndex: (\(markSlider.selectedMarkIndex) \(point)")
+
     }
 
     func TouchDown(markSlider: GWMarkSlider) {
@@ -61,7 +64,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeMarkPostionsButtonClick(sender: AnyObject) {
-        markSlider1.markPositions = [0.3, 0.4, 0.6, 0.1, 0.9]
+        markSlider1.markValues = [0.3, 0.4, 0.6, 0.1, 0.9]
     }
 
 }
