@@ -278,7 +278,7 @@ class GWMarkSlider: UIControl {
 
     }
 
-    // 计算value对应thunb图标的中心位置的y座标
+    // 计算value对应thunb图标的中心位置的x坐标
     // 对应 UISlider，整体的可以滑动的宽度，减少一个thumb图标的宽度
     // thumb的位置就是可滑动的宽度乘以value与（最大值减去最小值）的占例
     // 再加上前面半个thumb的宽度
