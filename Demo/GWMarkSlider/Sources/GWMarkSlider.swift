@@ -12,7 +12,7 @@ import QuartzCore
 class GWMarkSliderTrackLayer: CALayer {
     weak var markSlider: GWMarkSlider?
 
-    override func drawInContext(ctx: CGContext) {
+    override func draw(in ctx: CGContext) {
         guard let slider = markSlider else {
             return
         }
@@ -21,18 +21,18 @@ class GWMarkSliderTrackLayer: CALayer {
         // 移除tacker 的圆角
 //        let cornerRadius = bounds.height * slider.curvaceousness / 2.0
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        CGContextAddPath(ctx, path.CGPath)
+        ctx.addPath(path.cgPath)
 
         // Fill min track
-        CGContextSetFillColorWithColor(ctx, slider.minTintColor.CGColor)
-        CGContextAddPath(ctx, path.CGPath)
-        CGContextFillPath(ctx)
+        ctx.setFillColor(slider.minTintColor.cgColor)
+        ctx.addPath(path.cgPath)
+        ctx.fillPath()
 
         // Fill max track
-        CGContextSetFillColorWithColor(ctx, slider.maxTintColor.CGColor)
+        ctx.setFillColor(slider.maxTintColor.cgColor)
         let currentValuePosition = CGFloat(slider.positionForValue(slider.currentValue))
         let rect = CGRect(x: currentValuePosition, y: 0.0, width: bounds.width - currentValuePosition, height: bounds.height)
-        CGContextFillRect(ctx, rect)
+        ctx.fill(rect)
     }
 }
 
@@ -44,7 +44,7 @@ class GWMarkSliderThumbLayer: CALayer {
     }
     weak var markSlider: GWMarkSlider?
 
-    override func drawInContext(ctx: CGContext) {
+    override func draw(in ctx: CGContext) {
         guard let slider = markSlider else {
             return
         }
@@ -57,22 +57,22 @@ class GWMarkSliderThumbLayer: CALayer {
         let thumbPath = UIBezierPath(roundedRect: thumbFrame, cornerRadius: cornerRadius)
 
         // Fill 填充
-        CGContextSetFillColorWithColor(ctx, UIColor.whiteColor().CGColor)
-        CGContextAddPath(ctx, thumbPath.CGPath)
-        CGContextFillPath(ctx)
+        ctx.setFillColor(UIColor.white.cgColor)
+        ctx.addPath(thumbPath.cgPath)
+        ctx.fillPath()
 
         // Outline 边线
         // 画线时候，宽度是左右各占一半
         let strokeColor = slider.thumbTintColor
-        CGContextSetStrokeColorWithColor(ctx, strokeColor.CGColor)
-        CGContextSetLineWidth(ctx, 0.5)
-        CGContextAddPath(ctx, thumbPath.CGPath)
-        CGContextStrokePath(ctx)
+        ctx.setStrokeColor(strokeColor.cgColor)
+        ctx.setLineWidth(0.5)
+        ctx.addPath(thumbPath.cgPath)
+        ctx.strokePath()
 
         if highlighted {
-            CGContextSetFillColorWithColor(ctx, UIColor(white: 0.0, alpha: 0.1).CGColor)
-            CGContextAddPath(ctx, thumbPath.CGPath)
-            CGContextFillPath(ctx)
+            ctx.setFillColor(UIColor(white: 0.0, alpha: 0.1).cgColor)
+            ctx.addPath(thumbPath.cgPath)
+            ctx.fillPath()
         }
     }
 }
@@ -83,7 +83,7 @@ class GWMarkSliderMarkLayer: CALayer {
 
     var markValue: Double = 0.0
 
-    override func drawInContext(ctx: CGContext) {
+    override func draw(in ctx: CGContext) {
         guard let slider = markSlider else {
             return
         }
@@ -93,9 +93,9 @@ class GWMarkSliderMarkLayer: CALayer {
         let thumbPath = UIBezierPath(roundedRect: thumbFrame, cornerRadius: cornerRadius)
 
         // Fill 填充
-        CGContextSetFillColorWithColor(ctx, slider.markTintColor.CGColor)
-        CGContextAddPath(ctx, thumbPath.CGPath)
-        CGContextFillPath(ctx)
+        ctx.setFillColor(slider.markTintColor.cgColor)
+        ctx.addPath(thumbPath.cgPath)
+        ctx.fillPath()
 
     }
 }
@@ -172,7 +172,7 @@ class GWMarkSlider: UIControl {
         }
     }
 
-    @IBInspectable var markTintColor = UIColor.whiteColor() {
+    @IBInspectable var markTintColor = UIColor.white {
         didSet {
             for markLayer in markLayers {
                 markLayer.setNeedsDisplay()
@@ -186,13 +186,13 @@ class GWMarkSlider: UIControl {
         }
     }
 
-    private var previouslocation = CGPoint()
+    fileprivate var previouslocation = CGPoint()
 
-    private let trackLayer = GWMarkSliderTrackLayer()
-    private let thumbLayer = GWMarkSliderThumbLayer()
-    private var markLayers = [GWMarkSliderMarkLayer]()
+    fileprivate let trackLayer = GWMarkSliderTrackLayer()
+    fileprivate let thumbLayer = GWMarkSliderThumbLayer()
+    fileprivate var markLayers = [GWMarkSliderMarkLayer]()
 
-    private var thumbWidth: CGFloat {
+    fileprivate var thumbWidth: CGFloat {
         return CGFloat(bounds.height)
     }
 
@@ -215,28 +215,28 @@ class GWMarkSlider: UIControl {
         initializeLayers()
     }
 
-    override func layoutSublayersOfLayer(layer: CALayer) {
-        super.layoutSublayersOfLayer(layer)
+    override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
         updateLayerFrames()
     }
 
     // MARK: - update frames methods
     // UIs
-    private func initializeLayers() {
-        layer.backgroundColor = UIColor.clearColor().CGColor
+    fileprivate func initializeLayers() {
+        layer.backgroundColor = UIColor.clear.cgColor
 
         trackLayer.markSlider = self
-        trackLayer.contentsScale = UIScreen.mainScreen().scale
+        trackLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(trackLayer)
 
         thumbLayer.markSlider = self
-        thumbLayer.contentsScale = UIScreen.mainScreen().scale
+        thumbLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(thumbLayer)
 
         for markValue in markValues {
             let markLayer = GWMarkSliderMarkLayer()
             markLayer.markSlider = self
-            markLayer.contentsScale = UIScreen.mainScreen().scale
+            markLayer.contentsScale = UIScreen.main.scale
             markLayer.markValue = markValue
             markLayers.append(markLayer)
             layer.addSublayer(markLayer)
@@ -265,12 +265,12 @@ class GWMarkSlider: UIControl {
 
     }
 
-    private func resetMarkLayers() {
+    fileprivate func resetMarkLayers() {
 
         for markValue in markValues {
             let markLayer = GWMarkSliderMarkLayer()
             markLayer.markSlider = self
-            markLayer.contentsScale = UIScreen.mainScreen().scale
+            markLayer.contentsScale = UIScreen.main.scale
             markLayer.markValue = markValue
             markLayers.append(markLayer)
             layer.insertSublayer(markLayer, below: thumbLayer)
@@ -282,7 +282,7 @@ class GWMarkSlider: UIControl {
     // 对应 UISlider，整体的可以滑动的宽度，减少一个thumb图标的宽度
     // thumb的位置就是可滑动的宽度乘以value与（最大值减去最小值）的占例
     // 再加上前面半个thumb的宽度
-    private func positionForValue(value: Double) -> Double {
+    fileprivate func positionForValue(_ value: Double) -> Double {
         return Double(bounds.width - thumbWidth) * (value - minimumValue) /
             (maximumValue - minimumValue) + Double(thumbWidth / 2.0)
     }
@@ -290,8 +290,8 @@ class GWMarkSlider: UIControl {
     // MARK: - Touches: UIControl touch change methods
     // Actions
 
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        let location = touch.locationInView(self)
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
 
         // Hit test the thumb layers
         if thumbLayer.frame.contains(location) {
@@ -300,10 +300,10 @@ class GWMarkSlider: UIControl {
             return true
         } else {
             // 点击标记点
-            for (index, markLayer) in markLayers.enumerate() {
+            for (index, markLayer) in markLayers.enumerated() {
                 if markLayer.frame.contains(location) {
                     selectedMarkIndex = index
-                    sendActionsForControlEvents(.ValueChanged)
+                    sendActions(for: .valueChanged)
 
                     return false
                 }
@@ -313,8 +313,8 @@ class GWMarkSlider: UIControl {
         return false
     }
 
-    override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        let location = touch.locationInView(self)
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
 
         // Determine by how much the user has dragged
         // 和上一次的偏移量
@@ -328,16 +328,16 @@ class GWMarkSlider: UIControl {
             currentValue = max(min((currentValue + deltaValue), maximumValue), minimumValue)
         }
 
-        sendActionsForControlEvents(.EditingChanged)
+        sendActions(for: .editingChanged)
 
         return true
     }
 
-    override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
-        if let location = touch?.locationInView(self) {
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        if let location = touch?.location(in: self) {
             if thumbLayer.frame.contains(location) {
                 thumbLayer.highlighted = false
-                sendActionsForControlEvents(.EditingDidEnd)
+                sendActions(for: .editingDidEnd)
             }
         }
 

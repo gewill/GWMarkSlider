@@ -21,18 +21,18 @@ class ViewController: UIViewController {
         // markSlider1.maxTintColor = UIColor.clearColor()
         markSlider1.markValues = [0.3, 0.6]
 
-        markSlider1.addTarget(self, action: #selector(self.markSliderEditingChanged(_:)), forControlEvents: .EditingChanged)
-        markSlider1.addTarget(self, action: #selector(self.markSliderEditingDidEnd(_:)), forControlEvents: .EditingDidEnd)
-        markSlider1.addTarget(self, action: #selector(self.markSliderSelecteValueChanged(_:)), forControlEvents: .ValueChanged)
+        markSlider1.addTarget(self, action: #selector(self.markSliderEditingChanged(_:)), for: .editingChanged)
+        markSlider1.addTarget(self, action: #selector(self.markSliderEditingDidEnd(_:)), for: .editingDidEnd)
+        markSlider1.addTarget(self, action: #selector(self.markSliderSelecteValueChanged(_:)), for: .valueChanged)
         // markSlider1.addTarget(self, action: #selector(ViewController.TouchDown(_:)), forControlEvents: .TouchDown)
         // markSlider1.addTarget(self, action: #selector(ViewController.TouchUpInside(_:)), forControlEvents: .TouchUpInside)
 
         markSlider2 = GWMarkSlider()
         markSlider2.frame = CGRect(x: 20, y: 50, width: 200, height: 25)
         markSlider2.trackHeight = 5
-        markSlider2.minTintColor = UIColor.purpleColor()
-        markSlider2.maxTintColor = UIColor.lightGrayColor()
-        markSlider2.thumbTintColor = UIColor.redColor()
+        markSlider2.minTintColor = UIColor.purple
+        markSlider2.maxTintColor = UIColor.lightGray
+        markSlider2.thumbTintColor = UIColor.red
         markSlider2.markValues = [0.1, 0.3, 0.4, 0.6, 0.9]
         self.view.addSubview(markSlider2)
 
@@ -40,31 +40,31 @@ class ViewController: UIViewController {
 
     // MARK: - response methods
 
-    func markSliderEditingChanged(markSlider: GWMarkSlider) {
+    func markSliderEditingChanged(_ markSlider: GWMarkSlider) {
         print("markSlider value changed: (\(markSlider.currentValue)")
     }
 
-    func markSliderEditingDidEnd(markSlider: GWMarkSlider) {
+    func markSliderEditingDidEnd(_ markSlider: GWMarkSlider) {
         print("markSlider value changed end: (\(markSlider.currentValue)")
     }
 
-    func markSliderSelecteValueChanged(markSlider: GWMarkSlider) {
+    func markSliderSelecteValueChanged(_ markSlider: GWMarkSlider) {
 
         let point: CGPoint = CGPoint(x: markSlider1.frame.origin.x + markSlider.markCenters[markSlider.selectedMarkIndex].x, y: markSlider1.frame.origin.y + markSlider.markCenters[markSlider.selectedMarkIndex].y)
-        let point2 = self.view.convertPoint(markSlider.markCenters[markSlider.selectedMarkIndex], fromView: markSlider)
+        let point2 = self.view.convert(markSlider.markCenters[markSlider.selectedMarkIndex], from: markSlider)
         print("selectedMarkIndex: (\(markSlider.selectedMarkIndex) \(point) \(point2)")
 
     }
 
-    func TouchDown(markSlider: GWMarkSlider) {
-        print("\(NSDate()):TouchDown)")
+    func TouchDown(_ markSlider: GWMarkSlider) {
+        print("\(Date()):TouchDown)")
     }
 
-    func TouchUpInside(markSlider: GWMarkSlider) {
-        print("\(NSDate()):TouchUpInside")
+    func TouchUpInside(_ markSlider: GWMarkSlider) {
+        print("\(Date()):TouchUpInside")
     }
 
-    @IBAction func changeMarkPostionsButtonClick(sender: AnyObject) {
+    @IBAction func changeMarkPostionsButtonClick(_ sender: AnyObject) {
         markSlider1.markValues = [0.3, 0.4, 0.6, 0.1, 0.9]
     }
 
