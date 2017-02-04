@@ -32,7 +32,7 @@ markSlider.addTarget(self, action: #selector(self.markSliderSelecteValueChanged(
 Thanks to  [@warchimede](http://twitter.com/warchimede) ‘s [RangeSlider](https://github.com/warchimede/RangeSlider)
 
 ## Contact
-Follow and contact me on Twitter or Sina Weibo. If you find an issue, just open a ticket on it. Pull requests are warmly welcome as well.
+Follow and contact me on [Twitter](https://twitter.com/gewill_org) or [Sina Weibo](http://weibo.com/gewei). If you find an issue, just open a ticket on it. Pull requests are warmly welcome as well.
 
 ## License
 GWMarkSlider is available under the MIT License
