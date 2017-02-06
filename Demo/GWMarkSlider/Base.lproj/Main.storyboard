@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,15 +18,15 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mww-4Q-9CS" customClass="GWMarkSlider" customModule="GWMarkSlider" customModuleProvider="target">
-                                <rect key="frame" x="150" y="290" width="300" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="37.5" y="302.5" width="300" height="62"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Mze-I6-YP5"/>
-                                    <constraint firstAttribute="height" constant="20" id="Tuc-ac-2Ns"/>
+                                    <constraint firstAttribute="height" constant="62" id="Tuc-ac-2Ns"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
@@ -32,26 +36,48 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
-                                        <real key="value" value="0.69999999999999996"/>
+                                        <real key="value" value="0.29999999999999999"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="trackHeight">
-                                        <real key="value" value="4"/>
+                                        <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AP7-MI-Rzu">
-                                <rect key="frame" x="224" y="330" width="152" height="30"/>
+                                <rect key="frame" x="111.5" y="384.5" width="152" height="30"/>
                                 <state key="normal" title="change mark postions"/>
                                 <connections>
                                     <action selector="changeMarkPostionsButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ELO-zl-G6b"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="XBZ-23-esw">
+                                <rect key="frame" x="85.5" y="464" width="204" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Dw5-VL-Wr5"/>
+                                    <constraint firstAttribute="width" constant="200" id="yha-wT-NPA"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="sliderTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="90G-uu-0e9"/>
+                                    <action selector="sliderTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BtI-V8-O0n"/>
+                                    <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="eSe-MQ-7cg"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UISlider" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7y9-Vh-ztu">
+                                <rect key="frame" x="26.5" y="470.5" width="51" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1333333333" green="0.72549019609999998" blue="0.43921568630000002" alpha="0.33120061063218392" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mww-4Q-9CS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6eL-uN-7vi"/>
+                            <constraint firstItem="XBZ-23-esw" firstAttribute="top" secondItem="AP7-MI-Rzu" secondAttribute="bottom" constant="49.5" id="6jJ-La-1gN"/>
+                            <constraint firstItem="XBZ-23-esw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ap4-Md-3QE"/>
+                            <constraint firstItem="7y9-Vh-ztu" firstAttribute="centerY" secondItem="XBZ-23-esw" secondAttribute="centerY" id="GVD-An-jXx"/>
                             <constraint firstItem="AP7-MI-Rzu" firstAttribute="top" secondItem="mww-4Q-9CS" secondAttribute="bottom" constant="20" id="jmq-S0-NaM"/>
                             <constraint firstItem="mww-4Q-9CS" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ne1-R1-xXw"/>
+                            <constraint firstItem="XBZ-23-esw" firstAttribute="leading" secondItem="7y9-Vh-ztu" secondAttribute="trailing" constant="10" id="nuq-Wg-6Ty"/>
                             <constraint firstItem="AP7-MI-Rzu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z5Y-qg-e0O"/>
                         </constraints>
                     </view>
@@ -61,6 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="43.628185907046479"/>
         </scene>
     </scenes>
 </document>

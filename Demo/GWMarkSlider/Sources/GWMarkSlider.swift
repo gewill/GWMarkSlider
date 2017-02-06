@@ -1,6 +1,6 @@
 //
 //  GWMarkSlider.swift
-//  
+//
 //
 //  Created by Will on 6/28/16.
 //  Copyright © 2016 gewill.org. All rights reserved.
@@ -109,17 +109,34 @@ import QuartzCore
 
     // 标记点数组：范围 0-1
     var markValues: [Double] = [Double]() {
-
-        willSet {
-            markLayers = [GWMarkSliderMarkLayer]()
-        }
-
         didSet {
             resetMarkLayers()
         }
     }
 
-    var selectedMarkIndex = 0
+    var markImages: [UIImage] = [UIImage]() {
+        didSet {
+            resetMarkImageViews()
+        }
+    }
+
+    var selectedMarkIndex = 0 {
+        didSet {
+            guard selectedMarkIndex < markValues.count else {
+                return
+            }
+            guard selectedMarkIndex < markImages.count else {
+                return
+            }
+
+            for (index, markImageView) in markImageViews.enumerated() {
+                markImageView.isHighlighted = index == selectedMarkIndex
+                if index == selectedMarkIndex {
+                    self.bringSubview(toFront: markImageView)
+                }
+            }
+        }
+    }
 
     var markCenters: [CGPoint] {
         var centers = [CGPoint]()
@@ -193,14 +210,18 @@ import QuartzCore
     fileprivate let trackLayer = GWMarkSliderTrackLayer()
     fileprivate let thumbLayer = GWMarkSliderThumbLayer()
     fileprivate var markLayers = [GWMarkSliderMarkLayer]()
+    fileprivate var markImageViews = [GWMarkImageView]()
 
-    fileprivate var thumbWidth: CGFloat {
-        return CGFloat(bounds.height)
-    }
+    fileprivate var markImageViewWidth: CGFloat = 38
+    fileprivate var markImageViewHeight: CGFloat = 44
+    fileprivate var markImageViewBottom: CGFloat = 6
+
+    fileprivate var thumbWidth: CGFloat = 12
 
     override var frame: CGRect {
         didSet {
             updateLayerFrames()
+            updateViewFrames()
         }
     }
 
@@ -208,13 +229,13 @@ import QuartzCore
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        initializeLayers()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
-        initializeLayers()
+        setupUI()
     }
 
     override func layoutSublayers(of layer: CALayer) {
@@ -222,9 +243,14 @@ import QuartzCore
         updateLayerFrames()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateViewFrames()
+    }
+
     // MARK: - update frames methods
     // UIs
-    fileprivate func initializeLayers() {
+    fileprivate func setupUI() {
         layer.backgroundColor = UIColor.clear.cgColor
 
         trackLayer.markSlider = self
@@ -235,36 +261,38 @@ import QuartzCore
         thumbLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(thumbLayer)
 
-        for markValue in markValues {
-            let markLayer = GWMarkSliderMarkLayer()
-            markLayer.markSlider = self
-            markLayer.contentsScale = UIScreen.main.scale
-            markLayer.markValue = markValue
-            markLayers.append(markLayer)
-            layer.addSublayer(markLayer)
-        }
-
+        // show in Iterface Builder
+        resetMarkLayers()
+        resetMarkImageViews()
     }
 
     func updateLayerFrames() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
 
-        trackLayer.frame = bounds.insetBy(dx: 0.0, dy: (bounds.height - trackHeight) / 2)
+        trackLayer.frame = CGRect(x: 0.0, y: markImageViewHeight + markImageViewBottom + (thumbWidth - trackHeight) / 2.0, width: bounds.width, height: trackHeight)
         trackLayer.setNeedsDisplay()
 
         let lowerThumbCenter = CGFloat(positionForValue(currentValue))
-        thumbLayer.frame = CGRect(x: lowerThumbCenter - thumbWidth / 2.0, y: 0.0, width: thumbWidth, height: thumbWidth)
+        thumbLayer.frame = CGRect(x: lowerThumbCenter - thumbWidth / 2.0, y: markImageViewHeight + markImageViewBottom, width: thumbWidth, height: thumbWidth)
         thumbLayer.setNeedsDisplay()
 
         for markLayer in markLayers {
-            let markLayerCenter = CGFloat(positionForValue(markLayer.markValue))
-            markLayer.frame = CGRect(x: markLayerCenter, y: (bounds.height - trackHeight) / 2, width: trackHeight, height: trackHeight)
+            let markLayerCenterX = CGFloat(positionForValue(markLayer.markValue))
+            markLayer.frame = CGRect(x: markLayerCenterX - trackHeight / 2.0, y: markImageViewHeight + markImageViewBottom + (thumbWidth - trackHeight) / 2.0, width: trackHeight, height: trackHeight)
             markLayer.setNeedsDisplay()
         }
 
         CATransaction.commit()
 
+    }
+
+    func updateViewFrames() {
+        for markImageView in markImageViews {
+            let markImageViewCenterX = CGFloat(positionForValue(markImageView.markValue))
+            markImageView.frame = CGRect(x: markImageViewCenterX - markImageViewWidth / 2.0, y: 0, width: markImageViewWidth, height: markImageViewHeight)
+            markImageView.setNeedsDisplay()
+        }
     }
 
     fileprivate func resetMarkLayers() {
@@ -277,20 +305,39 @@ import QuartzCore
             markLayers.append(markLayer)
             layer.insertSublayer(markLayer, below: thumbLayer)
         }
-
     }
+
+    fileprivate func resetMarkImageViews() {
+
+        for (index, markValue) in markValues.enumerated() {
+            let markImageView = GWMarkImageView()
+            markImageView.markValue = markValue
+            if index < markImages.count {
+                markImageView.image = markImages[index]
+            }
+            markImageViews.append(markImageView)
+
+            markImageView.tag = index
+            markImageView.isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.markImageViewClicked(_:)))
+            markImageView.addGestureRecognizer(tap)
+
+            self.addSubview(markImageView)
+        }
+    }
+
 
     // 计算value对应thunb图标的中心位置的x坐标
     // 对应 UISlider，整体的可以滑动的宽度，减少一个thumb图标的宽度
     // thumb的位置就是可滑动的宽度乘以value与（最大值减去最小值）的占例
-    // 再加上前面半个thumb的宽度
     fileprivate func positionForValue(_ value: Double) -> Double {
-        return Double(bounds.width - thumbWidth) * (value - minimumValue) /
-            (maximumValue - minimumValue) + Double(thumbWidth / 2.0)
+        return Double(bounds.width) * (value - minimumValue) /
+        (maximumValue - minimumValue)
     }
 
     // MARK: - Touches: UIControl touch change methods
     // Actions
+    // 改为和UISlider一致
 
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
@@ -299,17 +346,20 @@ import QuartzCore
         if thumbLayer.frame.contains(location) {
             previouslocation = location
             thumbLayer.highlighted = true
+//            sendActions(for: .touchDown)
+
             return true
         } else {
             // 点击标记点
             for (index, markLayer) in markLayers.enumerated() {
                 if markLayer.frame.contains(location) {
                     selectedMarkIndex = index
-                    sendActions(for: .valueChanged)
+                    sendActions(for: .editingChanged)
 
                     return false
                 }
             }
+
         }
 
         return false
@@ -330,7 +380,7 @@ import QuartzCore
             currentValue = max(min((currentValue + deltaValue), maximumValue), minimumValue)
         }
 
-        sendActions(for: .editingChanged)
+        sendActions(for: .valueChanged)
 
         return true
     }
@@ -339,10 +389,19 @@ import QuartzCore
         if let location = touch?.location(in: self) {
             if thumbLayer.frame.contains(location) {
                 thumbLayer.highlighted = false
-                sendActions(for: .editingDidEnd)
+//                sendActions(for: .touchUpInside)
             }
         }
 
+    }
+
+    // MARK: - response methods
+    func markImageViewClicked(_ sender: UITapGestureRecognizer) {
+        guard let markImageView = sender.view as? GWMarkImageView else { return }
+        guard markImageView.tag < markValues.count else { return }
+
+        selectedMarkIndex = markImageView.tag
+        sendActions(for: .editingChanged)
     }
 
 }

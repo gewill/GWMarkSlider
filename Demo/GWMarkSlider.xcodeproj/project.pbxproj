@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE68C8331E482E0400AABEF3 /* GWMarkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68C8311E482E0400AABEF3 /* GWMarkImageView.swift */; };
+		BE68C8341E482E0400AABEF3 /* GWStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68C8321E482E0400AABEF3 /* GWStyleKit.swift */; };
 		BEE54A4F1D22614F00EBA55A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE54A4E1D22614F00EBA55A /* AppDelegate.swift */; };
 		BEE54A511D22614F00EBA55A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE54A501D22614F00EBA55A /* ViewController.swift */; };
 		BEE54A541D22614F00EBA55A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE54A521D22614F00EBA55A /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE68C8311E482E0400AABEF3 /* GWMarkImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWMarkImageView.swift; sourceTree = "<group>"; };
+		BE68C8321E482E0400AABEF3 /* GWStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWStyleKit.swift; sourceTree = "<group>"; };
 		BEE54A4B1D22614F00EBA55A /* GWMarkSlider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GWMarkSlider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEE54A4E1D22614F00EBA55A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEE54A501D22614F00EBA55A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 			isa = PBXGroup;
 			children = (
 				BEE54A611D22619300EBA55A /* GWMarkSlider.swift */,
+				BE68C8311E482E0400AABEF3 /* GWMarkImageView.swift */,
+				BE68C8321E482E0400AABEF3 /* GWStyleKit.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -148,7 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEE54A621D22619300EBA55A /* GWMarkSlider.swift in Sources */,
+				BE68C8341E482E0400AABEF3 /* GWStyleKit.swift in Sources */,
 				BEE54A511D22614F00EBA55A /* ViewController.swift in Sources */,
+				BE68C8331E482E0400AABEF3 /* GWMarkImageView.swift in Sources */,
 				BEE54A4F1D22614F00EBA55A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
