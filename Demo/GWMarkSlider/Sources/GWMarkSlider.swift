@@ -1,6 +1,6 @@
 //
 //  GWMarkSlider.swift
-//  CustomSliderExample
+//  
 //
 //  Created by Will on 6/28/16.
 //  Copyright © 2016 gewill.org. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class GWMarkSliderTrackLayer: CALayer {
+@objc class GWMarkSliderTrackLayer: CALayer {
     weak var markSlider: GWMarkSlider?
 
     override func draw(in ctx: CGContext) {
@@ -20,7 +20,7 @@ class GWMarkSliderTrackLayer: CALayer {
         // Clip
         // 移除tacker 的圆角
 //        let cornerRadius = bounds.height * slider.curvaceousness / 2.0
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 0)
         ctx.addPath(path.cgPath)
 
         // Fill min track
@@ -36,7 +36,8 @@ class GWMarkSliderTrackLayer: CALayer {
     }
 }
 
-class GWMarkSliderThumbLayer: CALayer {
+/// 当前进度点
+@objc class GWMarkSliderThumbLayer: CALayer {
     var highlighted: Bool = false {
         didSet {
             setNeedsDisplay()
@@ -77,7 +78,8 @@ class GWMarkSliderThumbLayer: CALayer {
     }
 }
 
-class GWMarkSliderMarkLayer: CALayer {
+///标记点
+@objc class GWMarkSliderMarkLayer: CALayer {
 
     weak var markSlider: GWMarkSlider?
 
@@ -89,8 +91,8 @@ class GWMarkSliderMarkLayer: CALayer {
         }
 
         let thumbFrame = bounds
-        let cornerRadius: CGFloat = slider.trackHeight / 2.0
-        let thumbPath = UIBezierPath(roundedRect: thumbFrame, cornerRadius: cornerRadius)
+//        let cornerRadius: CGFloat = slider.trackHeight / 2.0
+        let thumbPath = UIBezierPath(roundedRect: thumbFrame, cornerRadius: 0)
 
         // Fill 填充
         ctx.setFillColor(slider.markTintColor.cgColor)
@@ -101,7 +103,7 @@ class GWMarkSliderMarkLayer: CALayer {
 }
 
 @IBDesignable
-class GWMarkSlider: UIControl {
+@objc class GWMarkSlider: UIControl {
 
     // MARK: - properties
 
@@ -257,7 +259,7 @@ class GWMarkSlider: UIControl {
 
         for markLayer in markLayers {
             let markLayerCenter = CGFloat(positionForValue(markLayer.markValue))
-            markLayer.frame = CGRect(x: markLayerCenter - trackHeight, y: (bounds.height - trackHeight) / 2, width: trackHeight * 2, height: trackHeight)
+            markLayer.frame = CGRect(x: markLayerCenter, y: (bounds.height - trackHeight) / 2, width: trackHeight, height: trackHeight)
             markLayer.setNeedsDisplay()
         }
 
