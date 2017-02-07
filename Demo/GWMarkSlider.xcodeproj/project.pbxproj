@@ -7,19 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE68C8331E482E0400AABEF3 /* GWMarkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68C8311E482E0400AABEF3 /* GWMarkImageView.swift */; };
-		BE68C8341E482E0400AABEF3 /* GWStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68C8321E482E0400AABEF3 /* GWStyleKit.swift */; };
+		BE72BCF61E49ADE300D98B83 /* GWObjectiveCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE72BCF41E49ADE300D98B83 /* GWObjectiveCViewController.m */; };
+		BE72BCF71E49ADE300D98B83 /* GWObjectiveCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE72BCF51E49ADE300D98B83 /* GWObjectiveCViewController.xib */; };
+		BE72BCFC1E49B07C00D98B83 /* GWMarkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72BCF91E49B07C00D98B83 /* GWMarkImageView.swift */; };
+		BE72BCFD1E49B07C00D98B83 /* GWMarkSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72BCFA1E49B07C00D98B83 /* GWMarkSlider.swift */; };
+		BE72BCFE1E49B07C00D98B83 /* GWStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72BCFB1E49B07C00D98B83 /* GWStyleKit.swift */; };
 		BEE54A4F1D22614F00EBA55A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE54A4E1D22614F00EBA55A /* AppDelegate.swift */; };
 		BEE54A511D22614F00EBA55A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE54A501D22614F00EBA55A /* ViewController.swift */; };
 		BEE54A541D22614F00EBA55A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE54A521D22614F00EBA55A /* Main.storyboard */; };
 		BEE54A561D22614F00EBA55A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEE54A551D22614F00EBA55A /* Assets.xcassets */; };
 		BEE54A591D22614F00EBA55A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE54A571D22614F00EBA55A /* LaunchScreen.storyboard */; };
-		BEE54A621D22619300EBA55A /* GWMarkSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE54A611D22619300EBA55A /* GWMarkSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BE68C8311E482E0400AABEF3 /* GWMarkImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWMarkImageView.swift; sourceTree = "<group>"; };
-		BE68C8321E482E0400AABEF3 /* GWStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWStyleKit.swift; sourceTree = "<group>"; };
+		BE72BCF21E49ADE300D98B83 /* GWMarkSlider-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GWMarkSlider-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE72BCF31E49ADE300D98B83 /* GWObjectiveCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWObjectiveCViewController.h; sourceTree = "<group>"; };
+		BE72BCF41E49ADE300D98B83 /* GWObjectiveCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWObjectiveCViewController.m; sourceTree = "<group>"; };
+		BE72BCF51E49ADE300D98B83 /* GWObjectiveCViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GWObjectiveCViewController.xib; sourceTree = "<group>"; };
+		BE72BCF91E49B07C00D98B83 /* GWMarkImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWMarkImageView.swift; sourceTree = "<group>"; };
+		BE72BCFA1E49B07C00D98B83 /* GWMarkSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWMarkSlider.swift; sourceTree = "<group>"; };
+		BE72BCFB1E49B07C00D98B83 /* GWStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWStyleKit.swift; sourceTree = "<group>"; };
 		BEE54A4B1D22614F00EBA55A /* GWMarkSlider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GWMarkSlider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEE54A4E1D22614F00EBA55A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEE54A501D22614F00EBA55A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,7 +34,6 @@
 		BEE54A551D22614F00EBA55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEE54A581D22614F00EBA55A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEE54A5A1D22614F00EBA55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BEE54A611D22619300EBA55A /* GWMarkSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWMarkSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE72BCF81E49B07C00D98B83 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BE72BCF91E49B07C00D98B83 /* GWMarkImageView.swift */,
+				BE72BCFA1E49B07C00D98B83 /* GWMarkSlider.swift */,
+				BE72BCFB1E49B07C00D98B83 /* GWStyleKit.swift */,
+			);
+			name = Sources;
+			path = ../../Sources;
+			sourceTree = "<group>";
+		};
 		BEE54A421D22614F00EBA55A = {
 			isa = PBXGroup;
 			children = (
@@ -60,25 +77,19 @@
 		BEE54A4D1D22614F00EBA55A /* GWMarkSlider */ = {
 			isa = PBXGroup;
 			children = (
-				BEE54A601D22619300EBA55A /* Sources */,
+				BE72BCF81E49B07C00D98B83 /* Sources */,
 				BEE54A4E1D22614F00EBA55A /* AppDelegate.swift */,
 				BEE54A501D22614F00EBA55A /* ViewController.swift */,
+				BE72BCF31E49ADE300D98B83 /* GWObjectiveCViewController.h */,
+				BE72BCF41E49ADE300D98B83 /* GWObjectiveCViewController.m */,
+				BE72BCF51E49ADE300D98B83 /* GWObjectiveCViewController.xib */,
 				BEE54A521D22614F00EBA55A /* Main.storyboard */,
 				BEE54A551D22614F00EBA55A /* Assets.xcassets */,
 				BEE54A571D22614F00EBA55A /* LaunchScreen.storyboard */,
 				BEE54A5A1D22614F00EBA55A /* Info.plist */,
+				BE72BCF21E49ADE300D98B83 /* GWMarkSlider-Bridging-Header.h */,
 			);
 			path = GWMarkSlider;
-			sourceTree = "<group>";
-		};
-		BEE54A601D22619300EBA55A /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				BEE54A611D22619300EBA55A /* GWMarkSlider.swift */,
-				BE68C8311E482E0400AABEF3 /* GWMarkImageView.swift */,
-				BE68C8321E482E0400AABEF3 /* GWStyleKit.swift */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +153,7 @@
 			files = (
 				BEE54A591D22614F00EBA55A /* LaunchScreen.storyboard in Resources */,
 				BEE54A561D22614F00EBA55A /* Assets.xcassets in Resources */,
+				BE72BCF71E49ADE300D98B83 /* GWObjectiveCViewController.xib in Resources */,
 				BEE54A541D22614F00EBA55A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,11 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEE54A621D22619300EBA55A /* GWMarkSlider.swift in Sources */,
-				BE68C8341E482E0400AABEF3 /* GWStyleKit.swift in Sources */,
+				BE72BCFE1E49B07C00D98B83 /* GWStyleKit.swift in Sources */,
 				BEE54A511D22614F00EBA55A /* ViewController.swift in Sources */,
-				BE68C8331E482E0400AABEF3 /* GWMarkImageView.swift in Sources */,
+				BE72BCF61E49ADE300D98B83 /* GWObjectiveCViewController.m in Sources */,
+				BE72BCFD1E49B07C00D98B83 /* GWMarkSlider.swift in Sources */,
 				BEE54A4F1D22614F00EBA55A /* AppDelegate.swift in Sources */,
+				BE72BCFC1E49B07C00D98B83 /* GWMarkImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,10 +285,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GWMarkSlider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.gewill.GWMarkSlider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GWMarkSlider/GWMarkSlider-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -284,10 +300,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GWMarkSlider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.gewill.GWMarkSlider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GWMarkSlider/GWMarkSlider-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

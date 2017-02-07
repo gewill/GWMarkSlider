@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet var markSlider1: GWMarkSlider!
     var markSlider2: GWMarkSlider!
     var slider: UISlider!
+    
+    var markInfo1 = GWMarkInfo()
+    var markInfo2 = GWMarkInfo()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +23,13 @@ class ViewController: UIViewController {
 
         // markSlider1.minTintColor = UIColor.clearColor()
         // markSlider1.maxTintColor = UIColor.clearColor()
-        markSlider1.markValues = [(0.3, UIImage(named: "bg")!), ( 0.33, UIImage(named: "bg2")!)]
+
+        markInfo1.value = 0.3
+        markInfo1.image = UIImage(named: "bg")
+
+        markInfo2.value = 0.5
+        markInfo2.image = UIImage(named: "bg2")
+        markSlider1.markInfos = [markInfo1, markInfo2]
 
 
 
@@ -36,7 +45,7 @@ class ViewController: UIViewController {
         markSlider2.minTintColor = UIColor.purple
         markSlider2.maxTintColor = UIColor.lightGray
         markSlider2.thumbTintColor = UIColor.red
-        markSlider2.markValues = [(0.3, UIImage(named: "bg")!), ( 0.33, UIImage(named: "bg2")!), (0.5, UIImage(named: "bg")!), ( 0.73, UIImage(named: "bg2")!)]
+        markSlider2.markInfos = [markInfo1, markInfo2, markInfo2]
         self.view.addSubview(markSlider2)
 
 
@@ -62,7 +71,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeMarkPostionsButtonClick(_ sender: AnyObject) {
-        markSlider1.markValues = [(0.1, UIImage(named: "bg")!), ( 0.63, UIImage(named: "bg2")!), (0.5, UIImage(named: "bg")!), ( 0.993, UIImage(named: "bg2")!)]
+        markSlider1.markInfos = [markInfo1, markInfo2, markInfo1, markInfo2]
     }
 
     // UISlider response methods
@@ -78,5 +87,9 @@ class ViewController: UIViewController {
         print("\(#function): \(sender.value)")
     }
 
+    @IBAction func pushObjectiveCVC(_ sender: UIButton) {
+        let vc = GWObjectiveCViewController(nibName: "GWObjectiveCViewController", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
