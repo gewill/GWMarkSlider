@@ -20,13 +20,13 @@ class ViewController: UIViewController {
 
         // markSlider1.minTintColor = UIColor.clearColor()
         // markSlider1.maxTintColor = UIColor.clearColor()
-        markSlider1.markValues = [0.3, 0.33]
-        markSlider1.markImages = [UIImage(named: "bg")!, UIImage(named: "bg2")!]
+        markSlider1.markValues = [(0.3, UIImage(named: "bg")!), ( 0.33, UIImage(named: "bg2")!)]
+
 
 
         markSlider1.addTarget(self, action: #selector(self.markSliderMarkTouchDown(_:)), for: .editingChanged)
         markSlider1.addTarget(self, action: #selector(self.markSliderValueChanged(_:)), for: .valueChanged)
-        
+
         markSlider1.addTarget(self, action: #selector(self.markSliderTouchDown(_:)), for: .touchDown)
         markSlider1.addTarget(self, action: #selector(self.markSliderTouchUpInside(_:)), for: .touchUpInside)
 
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         markSlider2.minTintColor = UIColor.purple
         markSlider2.maxTintColor = UIColor.lightGray
         markSlider2.thumbTintColor = UIColor.red
-        markSlider2.markValues = [0.1, 0.3, 0.4, 0.6, 0.9]
+        markSlider2.markValues = [(0.3, UIImage(named: "bg")!), ( 0.33, UIImage(named: "bg2")!), (0.5, UIImage(named: "bg")!), ( 0.73, UIImage(named: "bg2")!)]
         self.view.addSubview(markSlider2)
 
 
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeMarkPostionsButtonClick(_ sender: AnyObject) {
-        markSlider1.markValues = [0.3, 0.4, 0.6, 0.1, 0.9]
+        markSlider1.markValues = [(0.1, UIImage(named: "bg")!), ( 0.63, UIImage(named: "bg2")!), (0.5, UIImage(named: "bg")!), ( 0.993, UIImage(named: "bg2")!)]
     }
 
     // UISlider response methods

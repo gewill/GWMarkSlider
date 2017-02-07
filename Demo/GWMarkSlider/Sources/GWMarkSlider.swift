@@ -108,14 +108,15 @@ import QuartzCore
     // MARK: - properties
 
     // 标记点数组：范围 0-1
-    var markValues: [Double] = [Double]() {
+    var markValues: [(Double, UIImage)] = [(Double, UIImage)]() {
+        willSet {
+            let _ = markLayers.map({ $0.removeFromSuperlayer() })
+            let _ = markImageViews.map({ $0.removeFromSuperview() })
+            markLayers = [GWMarkSliderMarkLayer]()
+            markImageViews = [GWMarkImageView]()
+        }
         didSet {
             resetMarkLayers()
-        }
-    }
-
-    var markImages: [UIImage] = [UIImage]() {
-        didSet {
             resetMarkImageViews()
         }
     }
@@ -123,9 +124,6 @@ import QuartzCore
     var selectedMarkIndex = 0 {
         didSet {
             guard selectedMarkIndex < markValues.count else {
-                return
-            }
-            guard selectedMarkIndex < markImages.count else {
                 return
             }
 
@@ -141,7 +139,7 @@ import QuartzCore
     var markCenters: [CGPoint] {
         var centers = [CGPoint]()
         for markValue in markValues {
-            centers.append(CGPoint(x: CGFloat(positionForValue(markValue)), y: bounds.height / 2))
+            centers.append(CGPoint(x: CGFloat(positionForValue(markValue.0)), y: bounds.height / 2))
         }
         return centers
     }
@@ -297,11 +295,12 @@ import QuartzCore
 
     fileprivate func resetMarkLayers() {
 
+
         for markValue in markValues {
             let markLayer = GWMarkSliderMarkLayer()
             markLayer.markSlider = self
             markLayer.contentsScale = UIScreen.main.scale
-            markLayer.markValue = markValue
+            markLayer.markValue = markValue.0
             markLayers.append(markLayer)
             layer.insertSublayer(markLayer, below: thumbLayer)
         }
@@ -311,10 +310,8 @@ import QuartzCore
 
         for (index, markValue) in markValues.enumerated() {
             let markImageView = GWMarkImageView()
-            markImageView.markValue = markValue
-            if index < markImages.count {
-                markImageView.image = markImages[index]
-            }
+            markImageView.markValue = markValue.0
+            markImageView.image = markValues[index].1
             markImageViews.append(markImageView)
 
             markImageView.tag = index
