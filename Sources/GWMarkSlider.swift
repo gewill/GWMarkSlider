@@ -6,12 +6,12 @@
 //  Copyright © 2016 gewill.org. All rights reserved.
 //
 
-import UIKit
 import QuartzCore
+import UIKit
 
 @objc class GWMarkInfo: NSObject {
-    var value: Double = 0.0
-    var image: UIImage? = nil
+    @objc var value: Double = 0.0
+    @objc var image: UIImage?
 }
 
 @objc class GWMarkSliderTrackLayer: CALayer {
@@ -48,6 +48,7 @@ import QuartzCore
             setNeedsDisplay()
         }
     }
+
     weak var markSlider: GWMarkSlider?
 
     override func draw(in ctx: CGContext) {
@@ -83,9 +84,8 @@ import QuartzCore
     }
 }
 
-///标记点
+/// 标记点
 @objc class GWMarkSliderMarkLayer: CALayer {
-
     weak var markSlider: GWMarkSlider?
 
     var markValue: Double = 0.0
@@ -103,20 +103,18 @@ import QuartzCore
         ctx.setFillColor(slider.markTintColor.cgColor)
         ctx.addPath(thumbPath.cgPath)
         ctx.fillPath()
-
     }
 }
 
 @IBDesignable
 @objc class GWMarkSlider: UIControl {
-
     // MARK: - properties
 
     // 标记点数组：范围 0-1
-    var markInfos: [GWMarkInfo] = [GWMarkInfo]() {
+    @objc var markInfos: [GWMarkInfo] = [GWMarkInfo]() {
         willSet {
-            let _ = markLayers.map({ $0.removeFromSuperlayer() })
-            let _ = markImageViews.map({ $0.removeFromSuperview() })
+            _ = markLayers.map({ $0.removeFromSuperlayer() })
+            _ = markImageViews.map({ $0.removeFromSuperview() })
             markLayers = [GWMarkSliderMarkLayer]()
             markImageViews = [GWMarkImageView]()
         }
@@ -126,7 +124,7 @@ import QuartzCore
         }
     }
 
-    var selectedMarkIndex = 0 {
+    @objc var selectedMarkIndex = 0 {
         didSet {
             guard selectedMarkIndex < markInfos.count else {
                 return
@@ -135,7 +133,7 @@ import QuartzCore
             for (index, markImageView) in markImageViews.enumerated() {
                 markImageView.isHighlighted = index == selectedMarkIndex
                 if index == selectedMarkIndex {
-                    self.bringSubview(toFront: markImageView)
+                    self.bringSubviewToFront(markImageView)
                 }
             }
         }
@@ -229,6 +227,7 @@ import QuartzCore
     }
 
     // MARK: - life cycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -252,6 +251,7 @@ import QuartzCore
     }
 
     // MARK: - update frames methods
+
     // UIs
     fileprivate func setupUI() {
         layer.backgroundColor = UIColor.clear.cgColor
@@ -287,7 +287,6 @@ import QuartzCore
         }
 
         CATransaction.commit()
-
     }
 
     func updateViewFrames() {
@@ -299,8 +298,6 @@ import QuartzCore
     }
 
     fileprivate func resetMarkLayers() {
-
-
         for markValue in markInfos {
             let markLayer = GWMarkSliderMarkLayer()
             markLayer.markSlider = self
@@ -312,7 +309,6 @@ import QuartzCore
     }
 
     fileprivate func resetMarkImageViews() {
-
         for (index, markValue) in markInfos.enumerated() {
             let markImageView = GWMarkImageView()
             markImageView.markValue = markValue.value
@@ -321,23 +317,23 @@ import QuartzCore
 
             markImageView.tag = index
             markImageView.isUserInteractionEnabled = true
-            let tap = UITapGestureRecognizer(target: self, action: #selector(self.markImageViewClicked(_:)))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(markImageViewClicked(_:)))
             markImageView.addGestureRecognizer(tap)
 
-            self.addSubview(markImageView)
+            addSubview(markImageView)
         }
     }
-
 
     // 计算value对应thunb图标的中心位置的x坐标
     // 对应 UISlider，整体的可以滑动的宽度，减少一个thumb图标的宽度
     // thumb的位置就是可滑动的宽度乘以value与（最大值减去最小值）的占例
     fileprivate func positionForValue(_ value: Double) -> Double {
         return Double(bounds.width) * (value - minimumValue) /
-        (maximumValue - minimumValue)
+            (maximumValue - minimumValue)
     }
 
     // MARK: - Touches: UIControl touch change methods
+
     // Actions
     // 改为和UISlider一致
 
@@ -361,7 +357,6 @@ import QuartzCore
                     return false
                 }
             }
-
         }
 
         return false
@@ -394,16 +389,15 @@ import QuartzCore
 //                sendActions(for: .touchUpInside)
             }
         }
-
     }
 
     // MARK: - response methods
-    func markImageViewClicked(_ sender: UITapGestureRecognizer) {
+
+    @objc func markImageViewClicked(_ sender: UITapGestureRecognizer) {
         guard let markImageView = sender.view as? GWMarkImageView else { return }
         guard markImageView.tag < markInfos.count else { return }
 
         selectedMarkIndex = markImageView.tag
         sendActions(for: .editingChanged)
     }
-
 }

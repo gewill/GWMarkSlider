@@ -54,19 +54,19 @@ class ViewController: UIViewController {
 
     // MARK: - response methods
 
-    func markSliderMarkTouchDown(_ markSlider: GWMarkSlider) {
+    @objc func markSliderMarkTouchDown(_ markSlider: GWMarkSlider) {
         print("\(#function): \(markSlider.selectedMarkIndex)")
     }
 
-    func markSliderValueChanged(_ markSlider: GWMarkSlider) {
+    @objc func markSliderValueChanged(_ markSlider: GWMarkSlider) {
         print("\(#function) : \(markSlider.currentValue)")
     }
 
-    func markSliderTouchDown(_ markSlider: GWMarkSlider) {
+    @objc func markSliderTouchDown(_ markSlider: GWMarkSlider) {
         print("\(#function) : ↓\(markSlider.currentValue)")
     }
 
-    func markSliderTouchUpInside(_ markSlider: GWMarkSlider) {
+    @objc func markSliderTouchUpInside(_ markSlider: GWMarkSlider) {
         print("\(#function) : ↑\(markSlider.currentValue)")
     }
 
