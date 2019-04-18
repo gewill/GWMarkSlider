@@ -40,7 +40,8 @@ class ViewController: UIViewController {
         markSlider1.addTarget(self, action: #selector(self.markSliderTouchUpInside(_:)), for: .touchUpInside)
 
         markSlider2 = GWMarkSlider()
-        markSlider2.frame = CGRect(x: 20, y: 50, width: 200, height: 25)
+        let y = UIApplication.shared.statusBarFrame.height + 44 + 20
+        markSlider2.frame = CGRect(x: 20, y: y, width: 200, height: 25)
         markSlider2.trackHeight = 5
         markSlider2.minTintColor = UIColor.purple
         markSlider2.maxTintColor = UIColor.lightGray
