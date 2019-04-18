@@ -4,7 +4,7 @@
 GWMarkSlider is UISlider like, but you can add marks to indicate or show key infomations.
 
 ## Screenshot
-![](https://github.com/gewill/GWMarkSlider/blob/master/Screenshot.png?raw=true)
+![](./Screenshot.png)
 
 ## Use
 This control is **IBDesignable** and uses the **target-action** pattern for change notifications.
